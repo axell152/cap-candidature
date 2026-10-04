@@ -1,0 +1,17 @@
+{
+  "name": "cap-candidature",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Analyse automatisee d'un CV compare a une offre d'emploi.",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "openai": "^5.20.0",
+    "stripe": "^18.5.0"
+  },
+  "devDependencies": {
+    "vercel": "^41.7.0"
+  }
+}
