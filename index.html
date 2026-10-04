@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f5f1" />
+    <meta name="description" content="Adapte ton CV à une offre d'emploi en quelques minutes. Analyse automatique, claire et sans compte." />
+    <title>Cap Candidature — Un CV mieux ciblé, en quelques minutes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar wrap">
+      <a class="brand" href="/" aria-label="Cap Candidature, accueil"><span class="brand-mark">↗</span> cap<span>candidature</span></a>
+      <a class="top-link" href="#comment">Comment ça marche <span aria-hidden="true">↓</span></a>
+    </header>
+    <main>
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="pulse"></span> TON PROCHAIN POSTE COMMENCE ICI</div>
+          <h1>Ton CV mérite<br />le <em>bon angle.</em></h1>
+          <p class="hero-text">Compare ton CV à une offre. Reçois les points forts à mettre en avant, les écarts à combler et des reformulations concrètes.</p>
+          <div class="trust-row"><span><b>✳</b> Résultat en quelques minutes</span><span><b>✳</b> Sans compte à créer</span></div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+          <div class="art-card card-back"><div class="mini-line short"></div><div class="mini-line"></div><div class="mini-line medium"></div><div class="mini-block"></div></div>
+          <div class="art-card card-front"><div class="doc-head"><span class="doc-avatar">CV</span><div><i></i><i></i></div></div><div class="mini-line medium"></div><div class="mini-line"></div><div class="mini-line short"></div><div class="match-pill"><span>✓</span> Profil aligné</div></div>
+          <div class="spark spark-a">✳</div><div class="spark spark-b">✦</div>
+          <div class="art-note"><span class="note-dot"></span> Analyse personnalisée</div>
+        </div>
+      </section>
+      <section class="workspace wrap" id="outil">
+        <div class="section-heading">
+          <div><span class="step-label">L'OUTIL</span><h2>On fait le point sur ta candidature.</h2></div>
+          <div class="price-chip"><span>Analyse complète</span><strong>4,90 €</strong><small>paiement unique</small></div>
+        </div>
+        <div class="form-grid">
+          <label class="input-card" for="cv">
+            <span class="field-top"><span class="field-number">01</span><span class="field-title">Ton CV</span><span class="field-hint">Copie le texte</span></span>
+            <textarea id="cv" maxlength="12000" placeholder="Colle ici le texte de ton CV…&#10;&#10;Astuce : tu peux retirer ton nom, ton adresse et tes coordonnées avant l'envoi."></textarea>
+            <span class="field-bottom"><span>Pas besoin de mise en page</span><span id="cv-count">0 / 12 000</span></span>
+          </label>
+          <label class="input-card" for="job">
+            <span class="field-top"><span class="field-number">02</span><span class="field-title">L'offre d'emploi</span><span class="field-hint">Copie l'annonce</span></span>
+            <textarea id="job" maxlength="12000" placeholder="Colle ici le texte de l'offre d'emploi…&#10;&#10;Plus l'annonce est complète, plus l'analyse sera utile."></textarea>
+            <span class="field-bottom"><span>Intitulé, missions, compétences</span><span id="job-count">0 / 12 000</span></span>
+          </label>
+        </div>
+        <div class="form-actions">
+          <p class="privacy-note"><span class="lock-icon">⌑</span> Ton texte est utilisé pour cette analyse et n'est pas enregistré par le site.</p>
+          <button id="analyze" class="primary-button" type="button">Analyser ma candidature <span aria-hidden="true">↗</span></button>
+        </div>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </section>
+      <section id="result" class="result wrap" hidden>
+        <div class="result-top"><div><span class="step-label">TON ANALYSE</span><h2>Des pistes concrètes pour avancer.</h2></div><button id="copy" class="secondary-button" type="button">Copier le résultat <span>⧉</span></button></div>
+        <article id="result-content" class="result-content" aria-label="Résultat de l'analyse"></article>
+        <p class="result-footnote">Cette analyse est générée automatiquement à partir des textes fournis. Vérifie chaque proposition et ne conserve que les informations qui reflètent fidèlement ton expérience.</p>
+      </section>
+      <section class="how wrap" id="comment">
+        <div class="how-title"><span class="step-label">SIMPLE ET DIRECT</span><h2>Trois étapes.<br /><em>Un meilleur angle.</em></h2></div>
+        <div class="how-steps"><div class="how-step"><span>01</span><div><h3>Colle les deux textes</h3><p>Ton CV et l'offre que tu vises.</p></div></div><div class="how-step"><span>02</span><div><h3>Lance l'analyse</h3><p>Un paiement unique, puis l'outil compare les éléments.</p></div></div><div class="how-step"><span>03</span><div><h3>Repars avec un plan</h3><p>Des conseils ciblés et des exemples à personnaliser.</p></div></div></div>
+      </section>
+    </main>
+    <footer class="footer wrap"><a class="brand" href="/"><span class="brand-mark">↗</span> cap<span>candidature</span></a><span>Un outil d'aide à la candidature, pas une promesse d'embauche.</span></footer>
+    <script src="/app.js" defer></script>
+  </body>
+</html>
