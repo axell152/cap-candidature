@@ -16,6 +16,7 @@
       <a class="brand" href="/" aria-label="Cap Candidature, accueil"><span class="brand-mark">↗</span> cap<span>candidature</span></a>
       <a class="top-link" href="#comment">Comment ça marche <span aria-hidden="true">↓</span></a>
     </header>
+
     <main>
       <section class="hero wrap">
         <div class="hero-copy">
@@ -32,6 +33,7 @@
           <div class="art-note"><span class="note-dot"></span> Analyse personnalisée</div>
         </div>
       </section>
+
       <section class="workspace wrap" id="outil">
         <div class="section-heading">
           <div><span class="step-label">L'OUTIL</span><h2>On fait le point sur ta candidature.</h2></div>
@@ -50,21 +52,24 @@
           </label>
         </div>
         <div class="form-actions">
-          <p class="privacy-note"><span class="lock-icon">⌑</span> Ton texte est utilisé pour cette analyse et n'est pas enregistré par le site.</p>
+          <p class="privacy-note"><span class="lock-icon">⌑</span> Tes textes restent dans cet onglet jusqu'à l'analyse ou sa fermeture, puis sont effacés après une analyse réussie. Ils sont envoyés à OpenAI pour produire le résultat.</p>
           <button id="analyze" class="primary-button" type="button">Analyser ma candidature <span aria-hidden="true">↗</span></button>
         </div>
         <div id="status" class="status" role="status" aria-live="polite"></div>
       </section>
+
       <section id="result" class="result wrap" hidden>
         <div class="result-top"><div><span class="step-label">TON ANALYSE</span><h2>Des pistes concrètes pour avancer.</h2></div><button id="copy" class="secondary-button" type="button">Copier le résultat <span>⧉</span></button></div>
         <article id="result-content" class="result-content" aria-label="Résultat de l'analyse"></article>
         <p class="result-footnote">Cette analyse est générée automatiquement à partir des textes fournis. Vérifie chaque proposition et ne conserve que les informations qui reflètent fidèlement ton expérience.</p>
       </section>
+
       <section class="how wrap" id="comment">
         <div class="how-title"><span class="step-label">SIMPLE ET DIRECT</span><h2>Trois étapes.<br /><em>Un meilleur angle.</em></h2></div>
         <div class="how-steps"><div class="how-step"><span>01</span><div><h3>Colle les deux textes</h3><p>Ton CV et l'offre que tu vises.</p></div></div><div class="how-step"><span>02</span><div><h3>Lance l'analyse</h3><p>Un paiement unique, puis l'outil compare les éléments.</p></div></div><div class="how-step"><span>03</span><div><h3>Repars avec un plan</h3><p>Des conseils ciblés et des exemples à personnaliser.</p></div></div></div>
       </section>
     </main>
+
     <footer class="footer wrap"><a class="brand" href="/"><span class="brand-mark">↗</span> cap<span>candidature</span></a><span>Un outil d'aide à la candidature, pas une promesse d'embauche.</span></footer>
     <script src="/app.js" defer></script>
   </body>
