@@ -1,29 +1,30 @@
 # Cap Candidature
 
-Petit outil automatise qui compare un CV a une offre d'emploi et produit des pistes de reformulation. Le site ne demande pas de compte et n'enregistre pas les textes dans une base de donnees.
+Outil qui compare le texte d'un CV à une offre d'emploi et propose des pistes de reformulation fidèles aux informations fournies. Il ne promet ni entretien ni embauche.
 
-## Lancer en local
+## Parcours
+
+1. La personne saisit son CV et une offre.
+2. Une session Stripe Checkout est créée côté serveur.
+3. Au retour du paiement, le serveur confirme le règlement auprès de Stripe.
+4. L'API OpenAI rédige une analyse structurée. Chaque paiement autorise une analyse.
+
+Les saisies restent temporairement dans le stockage de session du navigateur pour survivre à la redirection vers Stripe. Les textes sont envoyés à OpenAI pour générer le rapport; ils ne sont pas conservés dans une base du site.
+
+## Développement local
 
 1. Installer Node.js et Git.
-2. Depuis ce dossier, executer `npm install` puis `npx vercel dev`.
-3. Creer `.env.local` a partir de `.env.example` et renseigner les cles OpenAI et Stripe.
-4. Tester le paiement en mode test Stripe avant de publier.
+2. Installer les dépendances avec `npm install`.
+3. Copier `.env.example` vers `.env.local` et renseigner les variables.
+4. Lancer `npx vercel dev`.
+5. Utiliser d'abord les clés de test Stripe.
 
-Le site utilise les fonctions serveur Vercel dans `api/`. La cle OpenAI et la cle secrete Stripe restent cote serveur. Les documents sont transmis a l'API OpenAI pour la generation; le code demande `store: false` et ne sauvegarde pas les textes cote site. Avant un lancement public, il faut ajouter des pages de confidentialite et de conditions de vente adaptees a l'activite, verifier les exigences liees au traitement des donnees personnelles, tester le parcours de paiement et les frais/coûts reels.
+## Configuration
 
-## Variables d'environnement
+Voir [CONFIGURATION.md](CONFIGURATION.md) pour les variables Vercel, Stripe et Upstash. Sans clés serveur ou base Redis, le paiement est refusé proprement. Ne jamais committer les secrets.
 
-- `OPENAI_API_KEY`: cle secrete API OpenAI.
-- `OPENAI_MODEL`: modele a utiliser (par defaut `gpt-6-luna`).
-- `STRIPE_SECRET_KEY`: cle secrete Stripe, d'abord en mode test.
-- `ANALYSIS_PRICE_CENTS`: prix en centimes d'euro (defaut: `490`).
+## Déploiement
 
-## Flux produit
+Le dépôt GitHub est relié à Vercel. Les changements sur `main` déclenchent un déploiement. Tester d'abord avec Stripe en mode test et vérifier les variables dans Vercel avant d'activer la production.
 
-1. L'utilisateur saisit le texte du CV et de l'offre.
-2. Stripe Checkout confirme le paiement unique.
-3. La fonction Vercel verifie la session payee.
-4. L'API OpenAI genere une analyse structuree.
-5. Le resultat est renvoye au navigateur; une session payee ne peut etre utilisee qu'une fois.
-
-Ce prototype ne promet ni entretien ni embauche. L'utilisateur doit verifier les suggestions avant de les reprendre.
+Avant d'accepter des paiements réels, compléter les informations légales, la politique de confidentialité, les conditions de vente et les obligations applicables au traitement des CV.
