@@ -6,12 +6,17 @@ import { randomUUID, createHash } from "node:crypto";
 const MAX_TEXT_LENGTH = 12000;
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const TEST_PREFIX = "cap-candidature:test-checkout:";
-const testMode = process.env.TEST_MODE === "true" && process.env.VERCEL_ENV !== "production";
+const isProduction = process.env.VERCEL_ENV === "production";
+const testMode = process.env.TEST_MODE === "true" && !isProduction;
 
 export default async function handler(request, response) {
   if (request.method !== "POST") return response.status(405).json({ error: "Méthode non autorisée." });
-  if (!process.env.OPENAI_API_KEY || !process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN || (!testMode && !process.env.STRIPE_SECRET_KEY)) {
-    return response.status(503).json({ error: "L'analyse automatique n'est pas encore configurée." });
+  const missing = ["OPENAI_API_KEY", "UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"].filter((name) => !process.env[name]);
+  if (!testMode && !process.env.STRIPE_SECRET_KEY) missing.push("STRIPE_SECRET_KEY");
+  if (missing.length) {
+    console.error("Configuration manquante:", missing.join(", "), "| VERCEL_ENV =", process.env.VERCEL_ENV || "local", "| TEST_MODE =", process.env.TEST_MODE || "(vide)");
+    const message = isProduction ? "L'analyse automatique n'est pas encore configurée." : "Configuration manquante sur ce déploiement (" + (process.env.VERCEL_ENV || "local") + ") : " + missing.join(", ") + ".";
+    return response.status(503).json({ error: message });
   }
 
   const { cv, job, sessionId, browserToken } = request.body || {};

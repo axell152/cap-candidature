@@ -3,13 +3,20 @@ import { Redis } from "@upstash/redis";
 import Stripe from "stripe";
 
 const UUID_PATTERN = /^[0-9a-f-]{36}$/i;
-const testMode = process.env.TEST_MODE === "true" && process.env.VERCEL_ENV !== "production";
+const isProduction = process.env.VERCEL_ENV === "production";
+const testMode = process.env.TEST_MODE === "true" && !isProduction;
 const TEST_PREFIX = "cap-candidature:test-checkout:";
 
 export default async function handler(request, response) {
   if (request.method !== "POST") return response.status(405).json({ error: "Méthode non autorisée." });
-  if (!process.env.OPENAI_API_KEY || !process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN || (!testMode && !process.env.STRIPE_SECRET_KEY)) {
-    return response.status(503).json({ error: "Le paiement est temporairement indisponible. Réessaie plus tard." });
+  const missing = ["OPENAI_API_KEY", "UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"].filter((name) => !process.env[name]);
+  if (!testMode && !process.env.STRIPE_SECRET_KEY) missing.push("STRIPE_SECRET_KEY");
+  if (missing.length) {
+    console.error("Configuration manquante:", missing.join(", "), "| VERCEL_ENV =", process.env.VERCEL_ENV || "local", "| TEST_MODE =", process.env.TEST_MODE || "(vide)");
+    let message = "Le paiement est temporairement indisponible. Réessaie plus tard.";
+    if (!isProduction) message = "Configuration manquante sur ce déploiement (" + (process.env.VERCEL_ENV || "local") + ") : " + missing.join(", ") + ".";
+    else if (process.env.TEST_MODE === "true" && missing.includes("STRIPE_SECRET_KEY")) message = "Le mode test est désactivé sur le déploiement Production. Ouvre une URL Preview pour tester sans paiement.";
+    return response.status(503).json({ error: message });
   }
 
   const { requestId, browserToken } = request.body || {};
